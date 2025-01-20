@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootcamps gratuitos na DIO - Cadastre-se</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #a4d7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .flipbook {
+            width: 90%;
+            max-width: 800px;
+            height: 90vh;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flipbook .header {
+            background: #63eae6;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .flipbook .content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .flipbook .content img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .flipbook .content-text {
+            text-align: justify;
+        }
+
+        .flipbook .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-top: 1px solid #ddd;
+        }
+
+        .footer button {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .footer button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .footer button:hover:not(:disabled) {
+            background: #6de3e3;
+        }
+
+        .footer .page-info {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="flipbook">
+        <div class="header">
+            <h1>Venham participar, junte-se nós!</h1>
+            <h3>Bootcamps da Microsoft na plataforma DIO.me</h3>
+        </div>
+        <div class="content" id="content">
+            <p>Bem-vindo ao Flip Book!</p>
+        </div>
+        <div class="footer">
+            <button id="prev-btn" disabled><i class="fas fa-arrow-left"></i> Anterior</button>
+            <div class="page-info" id="page-info">Página 1 de 10</div>
+            <button id="next-btn">Próximo <i class="fas fa-arrow-right"></i></button>
+        </div>
+    </div>
+
+    <script>
+        const pages = [
+            "<img src='./src/img/Bootcamps Microsoft.png' alt='Capa Bootcamps'>",
+            "<h2>Sumário</h2><ul><br><li>1. Introdução</li><li>2. O que você irá aprender</li><li>3. Confiabilidade</li><li>4. Responsabilidade</li><li>5. Conclusão</li><li>6. Fonte</li></ul>",            
+            "<h2>Introdução</h2><br><p>Nesse mês de Janeiro, têm 4 super oportunidades da Microsoft com inscrições abertas na plataforma DIO e esses Bootcamps são gratuitas, mas atenção com os prazos das inscrições. Estamos te convidando para participar e divulgar também para os seus amigos ou na sua universidade :)</p>",
+            "<h2>Microsoft AI for Tech - Criando Prompts Inteligentes</h2><br><img src='./src/img/Microsoft Prompts Inteligentes.png' width='240' heigth='190' alt='Prompts Inteligentes'><a href='https://www.dio.me/bootcamp/criando-prompts-inteligentes?ref=F1LSL5WNG1' target='_blank'>Click aqui</a><br><p>O que você irá aprender<p><br>Evolua habilidades<br>Estude tecnologias, ferramentas e bibliotecas que são tendências no mundo.<p><br>Mentoria<br>Aprenda com experts renomados em sessões ao vivo.<p><br>Desafios práticos<br>Treine o que aprendeu e destaque o seu portfólio com projetos práticos.<p><br>Prompts Inteligentes<br>Domine o “bê a bá” da engenharia de prompts entendendo as melhores práticas, modelos, estruturas e técnicas para transformar tarefas do dia a dia com IA, utilizando linguagem natural</p>",
+            "<h2>Bootcamp Microsoft Azure</h2><br><img src='src/img/Microsoft Azure AI-900.png' width='240' heigth='190' alt='microsoft azure'><br><a href='https://www.dio.me/bootcamp/microsoft-fundamentos-de-ia?ref=F1LSL5WNG1' target='_blank'>Microsoft Azure</a><br><p>Domine conceitos como visão computacional, classificação inteligente de imagem e inteligência de documentos com IA enquanto se familiariza com as tecnologias da Microsoft Azure e se prepara para realizar o exame de certificação AI-900 com sucesso.</p>",
+            "<h2>Confiabilidade</h2><br><p>Na plataforma da DIO.me, sinto-me a vontade para construir projetos práticos, com base nas orientações dos Experts e professores desta plataforma tão renomada e reconhecida por muitas parceiras nacionais e internacionais.</p>",
+            "<img src='./src/img/Microsoft Github Copilot.png' width='240' heigth='190' alt='Github Copilot'><a href='https://www.dio.me/bootcamp/github-copilot?ref=F1LSL5WNG1' target='_blank'>Github-copilot</a><br><p>Domine o GitHub Copilot e aproveite todos os benefícios dessa ferramenta de inteligência artificial para otimizar seu desenvolvimento. Aprenda a usar comandos Git, gerenciar branches com facilidade e explore como o GitHub Copilot pode sugerir soluções rápidas e melhorar a qualidade do seu código.</p>",
+            "<h2>Responsabilidade</h2><br><p>A Dio.me, tem a responsabilidade de levar aos seus alunos materiais didáticos e mentorias com professores e Experts experiêntes que atuam na área da Tecnologia. Assim levando e compartilhando os seus conhecimentos para todos(as).</p>",
+            "<h2>Conclusão</h2><br><p></p><img src='./src/img/cover.png' width='180' heigth='190' alt=''><br></p><p>Agradeço ao CEO Iglá Generoso e dos da sua equipe (colaboradores, parceiros, professores, o grupo do pessoal da Inclusão Social de Libras) e Campus Expert por esta oportunidade de compartilhar os meus conhecimentos adquiridos ao longo desses anos na plataforma DIO.me!</p><br><p>_____________________________________</p><br> <h4>Fonte: <a href='https://www.dio.me/sign-up?ref=F1LSL5WNG1' target='_blank'>Meu link da Plataforma DIO</a></p>",
+        ];
+
+        let currentPage = 0;
+        const content = document.getElementById('content');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const pageInfo = document.getElementById('page-info');
+
+        function updateContent() {
+            content.innerHTML = pages[currentPage];
+            pageInfo.textContent = `Página ${currentPage + 1} de ${pages.length}`;
+            prevBtn.disabled = currentPage === 0;
+            nextBtn.disabled = currentPage === pages.length - 1;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 0) {
+                currentPage--;
+                updateContent();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentPage < pages.length - 1) {
+                currentPage++;
+                updateContent();
+            }
+        });
+
+        updateContent();
+    </script>
+</body>
+</html>
